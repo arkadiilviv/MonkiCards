@@ -361,3 +361,42 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+# next
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+Monki.GUI/node_modules
+Monki.GUI/.pnp
+.pnp.js
+
+# testing
+Monki.GUI/coverage
+
+# next.js
+Monki.GUI/.next/
+Monki.GUI/out/
+
+# production
+Monki.GUI/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
