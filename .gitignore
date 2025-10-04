@@ -367,36 +367,36 @@ FodyWeavers.xsd
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-Monki.GUI/node_modules
-Monki.GUI/.pnp
-.pnp.js
+/Monki.GUI/node_modules
+/Monki.GUI/.pnp
+/Monki.GUI/.pnp.js
 
 # testing
-Monki.GUI/coverage
+/Monki.GUI/coverage
 
 # next.js
-Monki.GUI/.next/
-Monki.GUI/out/
+/Monki.GUI/.next/
+/Monki.GUI/out/
 
 # production
-Monki.GUI/build
+/Monki.GUI/build
 
 # misc
-.DS_Store
-*.pem
+/Monki.GUI/.DS_Store
+/Monki.GUI/*.pem
 
 # debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+/Monki.GUI/npm-debug.log*
+/Monki.GUI/yarn-debug.log*
+/Monki.GUI/yarn-error.log*
 
 # local env files
-.env*.local
-.env
+/Monki.GUI/.env*.local
+/Monki.GUI/.env
 
 # vercel
-.vercel
+/Monki.GUI/.vercel
 
 # typescript
-*.tsbuildinfo
-next-env.d.ts
+/Monki.GUI/*.tsbuildinfo
+/Monki.GUI/next-env.d.ts
