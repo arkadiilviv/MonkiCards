@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Monki.DAL;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContextPool<MonkiContex>(opt => 
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("MonkiContext")));
+
 
 var app = builder.Build();
 
