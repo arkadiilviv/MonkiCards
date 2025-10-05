@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Monki.DAL.Models;
 
 namespace Monki.DAL
 {
-	public class MonkiContex : DbContext
+	public class MonkiContext : IdentityDbContext<MonkiUser>
 	{
-		public MonkiContex(DbContextOptions<MonkiContex> options) : base(options)
+		public MonkiContext(DbContextOptions<MonkiContext> options) : base(options)
 		{
 		}
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
