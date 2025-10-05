@@ -11,7 +11,7 @@ using System.Text;
 using System.IdentityModel.Tokens;
 namespace Monki.API.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("[controller]")]
 	[ApiController]
 	public class AuthController : ControllerBase
 	{

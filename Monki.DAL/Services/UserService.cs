@@ -18,7 +18,20 @@ namespace Monki.DAL.Services
 
 		public async Task<ServiceResult> AddAsync(MonkiUser user, string password)
 		{
-			var res = await _manager.CreateAsync(user, password);
+			if (await _manager.FindByEmailAsync(user.Email) != null)
+			{
+				return ServiceResult.FailureResult("Email is already taken.");
+			}
+
+			IdentityResult res;
+			try
+			{
+				res = await _manager.CreateAsync(user, password);
+			} catch (Exception ex)
+			{
+				return ServiceResult.FailureResult("User creation failed due to an exception.", ex.Message);
+			}
+
 
 			if (res.Succeeded)
 			{

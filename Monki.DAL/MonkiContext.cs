@@ -12,5 +12,14 @@ namespace Monki.DAL
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 		}
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			base.OnModelCreating(builder);
+
+			// Make Email unique
+			builder.Entity<MonkiUser>()
+				.HasIndex(u => u.Email)
+				.IsUnique();
+		}
 	}
 }
