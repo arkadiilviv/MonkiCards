@@ -1,4 +1,5 @@
 ﻿using Monki.DAL.Models;
+using System.Security.Claims;
 namespace Monki.DAL.Interfaces
 {
 	public interface IUserService
@@ -7,5 +8,6 @@ namespace Monki.DAL.Interfaces
 		public Task<ServiceResult> FindByUsername(string username);
 		public Task<ServiceResult> CheckPasswordAsync(MonkiUser user, string password);
 		public ServiceResult IssueToken(MonkiUser user, string jwtIssuer, string jwtKey);
+		public Task<ServiceResult> GetUserAsync(ClaimsPrincipal user);
 	}
 }

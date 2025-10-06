@@ -91,5 +91,11 @@ namespace Monki.DAL.Services
 
 			return ServiceResult.SuccessResult("Token issued successfully.", new JwtSecurityTokenHandler().WriteToken(token));
 		}
+
+		public async Task<ServiceResult> GetUserAsync(ClaimsPrincipal user)
+		{
+			var monkiUser = await _manager.GetUserAsync(user);
+			return ServiceResult.SuccessResult(data: monkiUser);
+		}
 	}
 }

@@ -20,6 +20,23 @@ namespace Monki.DAL
 			builder.Entity<MonkiUser>()
 				.HasIndex(u => u.Email)
 				.IsUnique();
+
+			// One-to-many relationship between MonkiUser and MonkiDeck
+			builder.Entity<MonkiDeck>()
+				.HasOne(d => d.User)
+				.WithMany(u => u.Decks)
+				.HasForeignKey(d => d.UserId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			// One-to-many relationship between MonkiDeck and MonkiCard
+			builder.Entity<MonkiCard>()
+				.HasOne(c => c.Deck)
+				.WithMany(d => d.Cards)
+				.HasForeignKey(c => c.DeckId)
+				.OnDelete(DeleteBehavior.Cascade);
 		}
+
+		public DbSet<MonkiDeck> Decks { get; set; } = null!;
+		public DbSet<MonkiCard> Cards { get; set; } = null!;
 	}
 }

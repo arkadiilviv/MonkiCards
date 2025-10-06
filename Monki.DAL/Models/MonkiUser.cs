@@ -8,5 +8,6 @@ namespace Monki.DAL.Models
 		public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 		public bool IsActive { get; set; } = true;
 		public bool IsDeleted { get; set; } = false;
+		public List<MonkiDeck> Decks { get; set; } = new List<MonkiDeck>();
 	}
 }
