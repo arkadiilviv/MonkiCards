@@ -24,9 +24,14 @@ namespace Monki.DAL.Services
 			throw new Exception("Failed to add deck.");
 		}
 
-		public Task Delete(MonkiDeck item)
+		public async Task Delete(MonkiDeck item)
 		{
-			throw new NotImplementedException();
+			_context.Decks.Remove(item);
+			var res = await _context.SaveChangesAsync();
+			if (res == 0)
+				throw new Exception("Failed to delete deck.");
+
+			return;
 		}
 
 		public IEnumerable<MonkiDeck> GetAll()
