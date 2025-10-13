@@ -16,6 +16,7 @@ app.MapControllers();
 // Swagger
 if(app.Environment.IsDevelopment())
 {
+	app.UseCors("AllowFrontend");
 	app.MapOpenApi();
 	app.UseSwagger();
 	app.UseSwaggerUI();

@@ -14,6 +14,18 @@ namespace Monki.API
 	{
 		public static WebApplicationBuilder SetConfiguration(this WebApplicationBuilder builder)
 		{
+			// Cors for local Next.js dev
+			builder.Services.AddCors(options =>
+			{
+				options.AddPolicy("AllowFrontend", policy =>
+				{
+					policy
+						.WithOrigins("http://localhost:3000") // your Next.js dev URL
+						.AllowAnyHeader()
+						.AllowAnyMethod()
+						.AllowCredentials();
+				});
+			});
 
 			// Add services to the container.
 			builder.Services.AddControllers();
