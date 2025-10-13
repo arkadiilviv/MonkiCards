@@ -95,6 +95,8 @@ namespace Monki.DAL.Services
 		public async Task<ServiceResult> GetUserAsync(ClaimsPrincipal user)
 		{
 			var monkiUser = await _manager.GetUserAsync(user);
+			if(monkiUser == null)
+				return ServiceResult.FailureResult("User not found.");
 			return ServiceResult.SuccessResult(data: monkiUser);
 		}
 	}

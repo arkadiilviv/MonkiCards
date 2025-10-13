@@ -1,11 +1,13 @@
-﻿namespace Monki.DAL.Interfaces
+﻿using Monki.DAL.Models;
+
+namespace Monki.DAL.Interfaces
 {
 	public interface IBaseService<T>
 	{
 		Task<T> AddAsync(T item);
 		Task Delete(T item);
 		IEnumerable<T> GetAll();
-		Task<T> GetById(int id);
-		void UpdateModel(T item);
+		T GetById(int id);
+		Task UpdateModelAsync(T item);
 	}
 }

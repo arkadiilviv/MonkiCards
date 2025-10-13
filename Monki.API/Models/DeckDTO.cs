@@ -4,6 +4,7 @@ namespace Monki.API.Models
 {
 	public class DeckDTO
 	{
+		public int Id { get; set; }
 		public string Name { get; set; } = string.Empty;
 		public string Description { get; set; } = string.Empty;
 		public bool IsPrivate { get; set; } = true;

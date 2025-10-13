@@ -30,7 +30,9 @@ namespace Monki.API.Controllers
 			{
 				var user = new MonkiUser { UserName = dto.UserName, Email = dto.Email };
 				var res = await _userService.AddAsync(user, dto.Password);
-				return res.Success ? Ok(res) : BadRequest(res);
+				return res.Success ? 
+					Ok(ServiceResult.SuccessResult(data: new UserDTOResponse(user))) : 
+					BadRequest(res);
 			} catch (Exception ex)
 			{
 				// Handle known exception

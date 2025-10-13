@@ -82,6 +82,7 @@ namespace Monki.API
 			// Services
 			builder.Services.AddScoped<IUserService, UserService>();
 			builder.Services.AddScoped<IDeckService, DeckService>();
+			builder.Services.AddScoped<ICardService, CardService>();
 			return builder;
 		}
 	}
