@@ -9,5 +9,6 @@ namespace Monki.DAL.Interfaces
 		public Task<ServiceResult> CheckPasswordAsync(MonkiUser user, string password);
 		public ServiceResult IssueToken(MonkiUser user, string jwtIssuer, string jwtKey);
 		public Task<ServiceResult> GetUserAsync(ClaimsPrincipal user);
+		public IEnumerable<MonkiUser> GetAll();
 	}
 }

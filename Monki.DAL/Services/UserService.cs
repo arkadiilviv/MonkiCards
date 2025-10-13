@@ -99,5 +99,10 @@ namespace Monki.DAL.Services
 				return ServiceResult.FailureResult("User not found.");
 			return ServiceResult.SuccessResult(data: monkiUser);
 		}
+
+		public IEnumerable<MonkiUser> GetAll()
+		{
+			return _manager.Users;
+		}
 	}
 }
