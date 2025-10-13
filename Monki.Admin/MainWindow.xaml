@@ -11,15 +11,28 @@
 			<TabItem Header="Decks">
 				<Grid>
 					<DataGrid ItemsSource="{Binding Decks}" 
+							  SelectedItem="{Binding SelectedDeck, Mode=TwoWay}"
                               AutoGenerateColumns="True"
-                              IsReadOnly="True"/>
+                              IsReadOnly="True">
+						<DataGrid.InputBindings>
+							<MouseBinding MouseAction="LeftDoubleClick"
+										  Command="{Binding OpenCardsCommand}"/>
+						</DataGrid.InputBindings>
+					</DataGrid>
 				</Grid>
 			</TabItem>
 			<TabItem Header="Users">
 				<Grid>
-					<DataGrid ItemsSource="{Binding Users}" 
-							  AutoGenerateColumns="True"
-                              IsReadOnly="True"/>
+					<DataGrid ItemsSource="{Binding Users}"
+                              IsReadOnly="True"
+							  AutoGenerateColumns="False">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+							<DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+							<DataGridTextColumn Header="Username" Binding="{Binding UserName}"/>
+							<DataGridTextColumn Header="CreatedAt" Binding="{Binding CreatedAt}"/>
+						</DataGrid.Columns>
+					</DataGrid>
 				</Grid>
 			</TabItem>
 		</TabControl>

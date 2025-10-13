@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Monki.Admin.ModelView;
+using Monki.Admin.ViewModels;
 using Monki.DAL;
 using Monki.DAL.Interfaces;
 using Monki.DAL.Models;
@@ -44,9 +45,9 @@ namespace Monki.Admin
 			serviceCollection.AddScoped<IDeckService, DeckService>();
 			serviceCollection.AddScoped<ICardService, CardService>();
 
-
 			serviceCollection.AddSingleton<MainViewModel>();
-
+			serviceCollection.AddSingleton<CardsViewModel>();
+			serviceCollection.AddTransient<CardsWindow>();
 
 			_serviceCollection = serviceCollection.BuildServiceProvider();
 		}
