@@ -21,7 +21,7 @@ namespace Monki.API.Controllers
 		/// Returns decks for current user
 		/// </summary>
 		/// <returns></returns>
-		[HttpGet("GetDeck")]
+		[HttpGet("GetDecks")]
 		[Authorize]
 		public async Task<IActionResult> GetDeck()
 		{

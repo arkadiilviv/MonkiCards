@@ -79,7 +79,7 @@ namespace Monki.API.Controllers
 		}
 
 		// DELETE api/<CardsController>/5
-		[HttpDelete("{id}")]
+		[HttpDelete("DeleteCard")]
 		[Authorize]
 		public async Task<IActionResult> Delete(int id)
 		{
