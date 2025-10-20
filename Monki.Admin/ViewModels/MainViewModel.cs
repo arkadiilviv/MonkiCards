@@ -20,6 +20,8 @@ namespace Monki.Admin.ModelView
 		private ObservableCollection<MonkiDeck> decks = new();
 		[ObservableProperty]
 		private ObservableCollection<MonkiUser> users = new();
+		[ObservableProperty]
+		private string deckSearchText = string.Empty;
 
 		public MainViewModel(IDeckService deckService, IUserService userService, IServiceProvider serviceProvider)
 		{
@@ -31,8 +33,39 @@ namespace Monki.Admin.ModelView
 
 		}
 
+		partial void OnDeckSearchTextChanging(string value)
+		{
+			if (string.IsNullOrWhiteSpace(value))
+			{
+				Decks = new ObservableCollection<MonkiDeck>(_deckService.GetAll().ToList());
+				return;
+			}
+			Decks = new ObservableCollection<MonkiDeck>(_deckService.GetAll().Where(x => x.Name.ToLower().Contains(value.ToLower())).ToList());
+		}
+
 		[RelayCommand]
 		private void OpenCards()
+		{
+			var window = _serviceProvider.GetRequiredService<CardsWindow>();
+			var vm = _serviceProvider.GetRequiredService<CardsViewModel>();
+			vm.Initialize(SelectedDeck);
+
+			window.DataContext = vm;
+			window.ShowDialog();
+		}
+
+		[RelayCommand]
+		private void DecksNext()
+		{
+			var window = _serviceProvider.GetRequiredService<CardsWindow>();
+			var vm = _serviceProvider.GetRequiredService<CardsViewModel>();
+			vm.Initialize(SelectedDeck);
+
+			window.DataContext = vm;
+			window.ShowDialog();
+		}
+		[RelayCommand]
+		private void DecksPrevious()
 		{
 			var window = _serviceProvider.GetRequiredService<CardsWindow>();
 			var vm = _serviceProvider.GetRequiredService<CardsViewModel>();

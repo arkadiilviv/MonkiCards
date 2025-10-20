@@ -6,35 +6,61 @@
         xmlns:local="clr-namespace:Monki.Admin"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-		<TabControl>
-			<TabItem Header="Decks">
-				<Grid>
-					<DataGrid ItemsSource="{Binding Decks}" 
-							  SelectedItem="{Binding SelectedDeck, Mode=TwoWay}"
-                              AutoGenerateColumns="True"
-                              IsReadOnly="True">
-						<DataGrid.InputBindings>
-							<MouseBinding MouseAction="LeftDoubleClick"
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<TextBlock Text="Welcome to Monki.Admin" FontSize="15" FontWeight="Bold" Grid.Row="0"/>
+		<Grid Grid.Row="1">
+			<TabControl>
+				<TabItem Header="Decks">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+							<Label Content="Search: " 
+								   VerticalAlignment="Center"
+								   Margin="10 0 10 0"/>
+							<TextBox Width="200">
+								<TextBox.Text>
+									<Binding Path="DeckSearchText"
+											 Mode="OneWayToSource"
+											 UpdateSourceTrigger="PropertyChanged"
+											 Delay="700"/>
+								</TextBox.Text>
+							</TextBox>
+						</StackPanel>
+						<DataGrid ItemsSource="{Binding Decks}" 
+								  Grid.Row="1" 
+								  SelectedItem="{Binding SelectedDeck, Mode=TwoWay}"
+                                  AutoGenerateColumns="True"
+                                  IsReadOnly="True"
+								  Margin="5">
+							<DataGrid.InputBindings>
+								<MouseBinding MouseAction="LeftDoubleClick"
 										  Command="{Binding OpenCardsCommand}"/>
-						</DataGrid.InputBindings>
-					</DataGrid>
-				</Grid>
-			</TabItem>
-			<TabItem Header="Users">
-				<Grid>
-					<DataGrid ItemsSource="{Binding Users}"
+							</DataGrid.InputBindings>
+						</DataGrid>
+					</Grid>
+				</TabItem>
+				<TabItem Header="Users">
+					<Grid>
+						<DataGrid ItemsSource="{Binding Users}"
                               IsReadOnly="True"
 							  AutoGenerateColumns="False">
-						<DataGrid.Columns>
-							<DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
-							<DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-							<DataGridTextColumn Header="Username" Binding="{Binding UserName}"/>
-							<DataGridTextColumn Header="CreatedAt" Binding="{Binding CreatedAt}"/>
-						</DataGrid.Columns>
-					</DataGrid>
-				</Grid>
-			</TabItem>
-		</TabControl>
+							<DataGrid.Columns>
+								<DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
+								<DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
+								<DataGridTextColumn Header="Username" Binding="{Binding UserName}"/>
+								<DataGridTextColumn Header="CreatedAt" Binding="{Binding CreatedAt}"/>
+							</DataGrid.Columns>
+						</DataGrid>
+					</Grid>
+				</TabItem>
+			</TabControl>
+		</Grid>
 	</Grid>
 </Window>
