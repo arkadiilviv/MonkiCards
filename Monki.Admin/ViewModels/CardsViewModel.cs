@@ -28,7 +28,7 @@ namespace Monki.Admin.ViewModels
 		public void Initialize(MonkiDeck deck)
 		{
 			Deck = deck;
-			Cards = new ObservableCollection<MonkiCard>(_cardService.GetAll().Where(x => x.DeckId == deck.Id));
+			Cards = new ObservableCollection<MonkiCard>(_cardService.GetAll().Where(x => x.DeckId == deck.Id).OrderBy(x => x.SideA));
 		}
 	}
 }
