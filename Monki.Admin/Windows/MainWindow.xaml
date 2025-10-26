@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Monki.Admin"
+		xmlns:controls="clr-namespace:Monki.Admin.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 	<Grid>
@@ -33,30 +34,44 @@
 								</TextBox.Text>
 							</TextBox>
 						</StackPanel>
-						<DataGrid ItemsSource="{Binding Decks}" 
-								  Grid.Row="1" 
-								  SelectedItem="{Binding SelectedDeck, Mode=TwoWay}"
-                                  AutoGenerateColumns="True"
-                                  IsReadOnly="True"
-								  Margin="5">
-							<DataGrid.InputBindings>
-								<MouseBinding MouseAction="LeftDoubleClick"
-										  Command="{Binding OpenCardsCommand}"/>
-							</DataGrid.InputBindings>
-						</DataGrid>
+						<controls:DeckListControl DecksListVm="{Binding DecksListVm}"
+												  Grid.Row="1"/>
 					</Grid>
 				</TabItem>
 				<TabItem Header="Users">
 					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+							<Label Content="Search: " 
+								   VerticalAlignment="Center"
+								   Margin="10 0 10 0"/>
+							<TextBox Width="200">
+								<TextBox.Text>
+									<Binding Path="UserSearchText"
+											 Mode="OneWayToSource"
+											 UpdateSourceTrigger="PropertyChanged"
+											 Delay="700"/>
+								</TextBox.Text>
+							</TextBox>
+						</StackPanel>
 						<DataGrid ItemsSource="{Binding Users}"
-                              IsReadOnly="True"
-							  AutoGenerateColumns="False">
+								  SelectedItem="{Binding SelectedUser}"
+								  IsReadOnly="True"
+								  AutoGenerateColumns="False"
+								  Grid.Row="1">
 							<DataGrid.Columns>
 								<DataGridTextColumn Header="Id" Binding="{Binding Id}"/>
 								<DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
 								<DataGridTextColumn Header="Username" Binding="{Binding UserName}"/>
 								<DataGridTextColumn Header="CreatedAt" Binding="{Binding CreatedAt}"/>
 							</DataGrid.Columns>
+							<DataGrid.InputBindings>
+								<MouseBinding MouseAction="LeftDoubleClick"
+											  Command="{Binding OpenUserCommand}"/>
+							</DataGrid.InputBindings>
 						</DataGrid>
 					</Grid>
 				</TabItem>

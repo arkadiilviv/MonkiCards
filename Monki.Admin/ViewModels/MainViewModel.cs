@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Monki.Admin.ViewModels;
+using Monki.Admin.Windows;
 using Monki.DAL.Interfaces;
 using Monki.DAL.Models;
 using System.Collections.ObjectModel;
@@ -15,13 +16,15 @@ namespace Monki.Admin.ModelView
 		private readonly IServiceProvider _serviceProvider;
 
 		[ObservableProperty]
-		private MonkiDeck? selectedDeck;
+		private DeckListViewModel decksListVm;
 		[ObservableProperty]
-		private ObservableCollection<MonkiDeck> decks = new();
+		private MonkiUser? selectedUser;
 		[ObservableProperty]
 		private ObservableCollection<MonkiUser> users = new();
 		[ObservableProperty]
 		private string deckSearchText = string.Empty;
+		[ObservableProperty]
+		private string userSearchText = string.Empty;
 
 		public MainViewModel(IDeckService deckService, IUserService userService, IServiceProvider serviceProvider)
 		{
@@ -29,50 +32,49 @@ namespace Monki.Admin.ModelView
 			_userService = userService;
 			_serviceProvider = serviceProvider;
 			users = new ObservableCollection<MonkiUser>(_userService.GetAll().ToList());
-			decks = new ObservableCollection<MonkiDeck>(_deckService.GetAll().ToList());
-
+			DecksListVm = new DeckListViewModel(
+				_deckService.GetAll()
+					.Select(x => new DeckViewModel(x)),
+				_serviceProvider);
 		}
 
-		partial void OnDeckSearchTextChanging(string value)
+		partial void OnDeckSearchTextChanged(string value)
 		{
 			if (string.IsNullOrWhiteSpace(value))
 			{
-				Decks = new ObservableCollection<MonkiDeck>(_deckService.GetAll().ToList());
+				DecksListVm.Decks = new ObservableCollection<DeckViewModel>(
+					_deckService.GetAll()
+						.Select(x => new DeckViewModel(x))
+				);
 				return;
 			}
-			Decks = new ObservableCollection<MonkiDeck>(_deckService.GetAll().Where(x => x.Name.ToLower().Contains(value.ToLower())).ToList());
+			DecksListVm.Decks = new ObservableCollection<DeckViewModel>(
+				_deckService.GetAll()
+					.Where(x => x.Name.ToLower().Contains(value.ToLower()))
+					.Select(x => new DeckViewModel(x))
+				);
+		}
+
+		partial void OnUserSearchTextChanged(string value)
+		{
+			if (string.IsNullOrWhiteSpace(value))
+			{
+				Users = new ObservableCollection<MonkiUser>(_userService.GetAll().ToList());
+				return;
+			}
+			Users = new ObservableCollection<MonkiUser>(_userService.GetAll().Where(x => x.UserName.ToLower().Contains(value.ToLower())).ToList());
 		}
 
 		[RelayCommand]
-		private void OpenCards()
+		public void OpenUser()
 		{
-			var window = _serviceProvider.GetRequiredService<CardsWindow>();
-			var vm = _serviceProvider.GetRequiredService<CardsViewModel>();
-			vm.Initialize(SelectedDeck);
-
+			if (SelectedUser == null)
+				return;
+			var window = _serviceProvider.GetRequiredService<UserDetailsWindow>();
+			var vm = _serviceProvider.GetRequiredService<UserDetailsViewModel>();
+			vm.InitModel(SelectedUser);
 			window.DataContext = vm;
-			window.ShowDialog();
-		}
-
-		[RelayCommand]
-		private void DecksNext()
-		{
-			var window = _serviceProvider.GetRequiredService<CardsWindow>();
-			var vm = _serviceProvider.GetRequiredService<CardsViewModel>();
-			vm.Initialize(SelectedDeck);
-
-			window.DataContext = vm;
-			window.ShowDialog();
-		}
-		[RelayCommand]
-		private void DecksPrevious()
-		{
-			var window = _serviceProvider.GetRequiredService<CardsWindow>();
-			var vm = _serviceProvider.GetRequiredService<CardsViewModel>();
-			vm.Initialize(SelectedDeck);
-
-			window.DataContext = vm;
-			window.ShowDialog();
+			window.Show();
 		}
 	}
 }

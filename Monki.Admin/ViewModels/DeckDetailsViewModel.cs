@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Monki.Admin.ViewModels
 {
-	public partial class CardsViewModel : ObservableObject
+	public partial class DeckDetailsViewModel : ObservableObject
 	{
 		private readonly ICardService _cardService;
 
@@ -21,7 +21,7 @@ namespace Monki.Admin.ViewModels
 		[ObservableProperty]
 		private MonkiCard? selectedCard;
 
-		public CardsViewModel(ICardService cardService)
+		public DeckDetailsViewModel(ICardService cardService)
 		{
 			_cardService = cardService;
 		}

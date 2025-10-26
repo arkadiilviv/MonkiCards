@@ -18,9 +18,9 @@ namespace Monki.Admin
 	/// <summary>
 	/// Interaction logic for Cards.xaml
 	/// </summary>
-	public partial class CardsWindow : Window
+	public partial class DeckDetailsWindow : Window
 	{
-		public CardsWindow()
+		public DeckDetailsWindow()
 		{
 			InitializeComponent();
 		}
