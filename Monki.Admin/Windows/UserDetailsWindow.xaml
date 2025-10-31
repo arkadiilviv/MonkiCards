@@ -26,6 +26,7 @@
 			<RowDefinition Height="80"/>
 			<RowDefinition Height="80"/>
 			<RowDefinition Height="*"/>
+			<RowDefinition Height="50"/>
 		</Grid.RowDefinitions>
 		<Border Grid.Column="0" Grid.Row="0">
 			<Grid>
@@ -124,5 +125,12 @@
 									Grid.Row="2"
 									Grid.Column="0"
 									Grid.ColumnSpan="2"/>
+
+		<Button Grid.Column="1" 
+				Grid.Row="3" 
+				HorizontalAlignment="Right" 
+				Content="Import deck"
+				Margin="10"
+				Command="{Binding OpenImportWindowCommand}"/>
 	</Grid>
 </Window>

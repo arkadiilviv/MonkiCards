@@ -1,0 +1,95 @@
+﻿<Window x:Class="Monki.Admin.Windows.ImportDeckWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Monki.Admin.Windows"
+		xmlns:controls="clr-namespace:Monki.Admin.Controls"
+        mc:Ignorable="d"
+        Title="ImportDeckWindow" Height="550" Width="800">
+	<Window.Resources>
+		<Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="5"/>
+		</Style>
+	</Window.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<Button Grid.Row="0"
+				Content="Open deck"
+				HorizontalAlignment="Stretch"
+				Command="{Binding OpenFileCommand}"/>
+		<ProgressBar IsIndeterminate="True"
+					 Grid.Row="1"
+					 Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" />
+		<Grid Grid.Row="2" 
+			  HorizontalAlignment="Stretch"
+			  VerticalAlignment="Center">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="150"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+
+			<Label Content="Deck Name:"
+				   Grid.Row="0"
+				   Grid.Column="0"/>
+			<TextBox Text="{Binding DeckName}"
+					 Grid.Row="0"
+					 Grid.Column="1"
+					 HorizontalAlignment="Stretch"
+					 Margin="5"/>
+
+			<Label Content="Deck Description:"
+				    Grid.Row="1"
+					Grid.Column="0"/>
+			<TextBox Text="{Binding DeckDescription}"
+					Grid.Row="1"
+					Grid.Column="1"
+					Margin="5"/>
+
+			<Label Content="Is Private:"
+					Grid.Row="2"
+					Grid.Column="0"/>
+			<CheckBox IsChecked="{Binding IsPrivate}"
+					Grid.Row="2"
+					Grid.Column="1"
+					Margin="5"/>
+
+			<Label Content="Card count:"
+					Grid.Row="3"
+					Grid.Column="0"/>
+			<TextBlock Text="{Binding CardCount}"
+					Grid.Row="3"
+					Grid.Column="1"
+					Margin="5"/>
+
+		</Grid>
+		<DataGrid ItemsSource="{Binding Cards}"
+				AutoGenerateColumns="False"
+				IsReadOnly="True"
+				Grid.Row="3">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="SideA" Binding="{Binding SideA}" Width="*"/>
+				<DataGridTextColumn Header="SideB" Binding="{Binding SideB}" Width="*"/>
+				<DataGridTextColumn Header="ExampleA" Binding="{Binding ExampleA}" Width="*"/>
+				<DataGridTextColumn Header="ExampleB" Binding="{Binding ExampleB}"  Width="*"/>
+			</DataGrid.Columns>
+		</DataGrid>
+		<Button Grid.Row="4"
+				HorizontalAlignment="Stretch"
+				Content="Save Deck"
+				Command="{Binding SaveDeckCommand}"/>
+	</Grid>
+</Window>

@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using Monki.Admin.Windows;
 using Monki.DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -49,6 +51,17 @@ namespace Monki.Admin.ViewModels
 				monkiUser.Decks
 					.Select(x => new DeckViewModel(x))
 				, _serviceProvider);
+		}
+
+		[RelayCommand]
+		public void OpenImportWindow()
+		{
+			var window = _serviceProvider.GetRequiredService<ImportDeckWindow>();
+			var vm = _serviceProvider.GetRequiredService<ImportDeckViewModel>();
+			vm.Initialize(_monkiUser);
+
+			window.DataContext = vm;
+			window.ShowDialog();
 		}
 	}
 }

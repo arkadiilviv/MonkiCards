@@ -6,6 +6,8 @@ using Monki.Admin.Windows;
 using Monki.DAL.Interfaces;
 using Monki.DAL.Models;
 using System.Collections.ObjectModel;
+using System.Net.Sockets;
+using System.Windows;
 
 namespace Monki.Admin.ModelView
 {
@@ -28,14 +30,22 @@ namespace Monki.Admin.ModelView
 
 		public MainViewModel(IDeckService deckService, IUserService userService, IServiceProvider serviceProvider)
 		{
-			_deckService = deckService;
-			_userService = userService;
-			_serviceProvider = serviceProvider;
-			users = new ObservableCollection<MonkiUser>(_userService.GetAll().ToList());
-			DecksListVm = new DeckListViewModel(
-				_deckService.GetAll()
-					.Select(x => new DeckViewModel(x)),
-				_serviceProvider);
+			try
+			{
+				_deckService = deckService;
+				_userService = userService;
+				_serviceProvider = serviceProvider;
+				users = new ObservableCollection<MonkiUser>(_userService.GetAll().ToList());
+				DecksListVm = new DeckListViewModel(
+					_deckService.GetAll()
+						.Select(x => new DeckViewModel(x)),
+					_serviceProvider);
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Could not connect to the database. Please check your connection settings and try again.", "Database Connection Error", MessageBoxButton.OK, MessageBoxImage.Error);
+				System.Windows.Application.Current.Shutdown();
+			}
 		}
 
 		partial void OnDeckSearchTextChanged(string value)

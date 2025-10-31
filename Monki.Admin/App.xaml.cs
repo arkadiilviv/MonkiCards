@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Monki.Admin.ModelView;
 using Monki.Admin.ViewModels;
 using Monki.Admin.Windows;
@@ -9,10 +8,8 @@ using Monki.DAL;
 using Monki.DAL.Interfaces;
 using Monki.DAL.Models;
 using Monki.DAL.Services;
-using System;
+using SQLitePCL;
 using System.Configuration;
-using System.Data;
-using System.Printing;
 using System.Windows;
 
 namespace Monki.Admin
@@ -50,11 +47,16 @@ namespace Monki.Admin
 
 			serviceCollection.AddTransient<DeckDetailsViewModel>();
 			serviceCollection.AddTransient<UserDetailsViewModel>();
+			serviceCollection.AddTransient<ImportDeckViewModel>();
 
 			serviceCollection.AddTransient<DeckDetailsWindow>();
 			serviceCollection.AddTransient<UserDetailsWindow>();
+			serviceCollection.AddTransient<ImportDeckWindow>();
+
 
 			_serviceCollection = serviceCollection.BuildServiceProvider();
+
+			Batteries.Init();
 		}
 		protected override void OnStartup(StartupEventArgs e)
 		{
