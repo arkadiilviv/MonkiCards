@@ -101,7 +101,6 @@ namespace Monki.Admin.ViewModels
 					};
 					Cards.Add(newCard);
 				}
-
 			}
 
 			IsBusy = false;

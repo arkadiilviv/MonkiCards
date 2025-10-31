@@ -40,8 +40,7 @@ namespace Monki.Admin.ModelView
 					_deckService.GetAll()
 						.Select(x => new DeckViewModel(x)),
 					_serviceProvider);
-			}
-			catch (Exception)
+			} catch (Exception)
 			{
 				MessageBox.Show("Could not connect to the database. Please check your connection settings and try again.", "Database Connection Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				System.Windows.Application.Current.Shutdown();
@@ -85,6 +84,16 @@ namespace Monki.Admin.ModelView
 			vm.InitModel(SelectedUser);
 			window.DataContext = vm;
 			window.Show();
+		}
+
+		[RelayCommand]
+		public void RefreshData()
+		{
+			Users = new ObservableCollection<MonkiUser>(_userService.GetAll().ToList());
+			DecksListVm.Decks = new ObservableCollection<DeckViewModel>(
+				_deckService.GetAll()
+					.Select(x => new DeckViewModel(x))
+			);
 		}
 	}
 }

@@ -61,6 +61,14 @@ namespace Monki.Admin.ViewModels
 			vm.Initialize(_monkiUser);
 
 			window.DataContext = vm;
+			window.Closed += (_, _) =>
+			{
+				// Clear cards list on close
+				DecksListVm.Decks = new System.Collections.ObjectModel.ObservableCollection<DeckViewModel>(
+					_monkiUser.Decks
+						.Select(x => new DeckViewModel(x))
+				);
+			};
 			window.ShowDialog();
 		}
 	}
