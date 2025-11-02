@@ -8,5 +8,3 @@ docker run --name manki-db-gui -p 5050:80 -e PGADMIN_DEFAULT_EMAIL=arkasha@arkas
 dotnet ef migrations add InitIdentity -p ../Monki.DAL -s ../Monki.API
 dotnet ef database update -p ../Monki.DAL -s ../Monki.API
 ```
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs?username=arkadiilviv&show_icons=true&locale=en&layout=compact&theme=chartreuse-dark" alt="ovi" />
